@@ -6,11 +6,14 @@ var main = function () {
         "name": "Общие сведения",
         "content": function (callback) {
             var $content = $("<div>").addClass("content");
-            $.getJSON("files.json", function (files) {
-                var $name = $("<p>").text("Имя: " + files[0].minorInfo.name),
-                    $surname = $("<p>").text("Фамилия: " + files[0].minorInfo.surname),
-                    $middle = $("<p>").text("Отчество: " + files[0].minorInfo.middle_name);
-                $content.append($name).append($surname).append($middle);
+            $.getJSON("files.json", function (file) {
+                var $name = $("<p>").text("Имя: " + file.minorInfo.name),
+                    $surname = $("<p>").text("Фамилия: " + file.minorInfo.surname),
+                    $middle = $("<p>").text("Отчество: " + file.minorInfo.middle_name),
+                    $gender = $("<p>").text("Пол: " + file.minorInfo.gender),
+                    $age = $("<p>").text("Возраст: " + file.minorInfo.age);
+                $content.append($name).append($surname).append($middle).
+                    append($gender).append($age);
                 callback(null, $content);
             }).fail(function (jqXHR, textStatus, error) {
                 callback(error, null);
@@ -18,12 +21,18 @@ var main = function () {
         }
     })
     tabs.push({
-        "name": "Студент",
+        "name": "Информация об обучении",
         "content": function (callback) {
             var $content = $("<div>").addClass("content");
-            $.getJSON("files.json", function (files) {
-                var $qualification = $("<p>").text("Квалификация: " + files[0].student.qualification);
-                $content.append($qualification);
+            $.getJSON("files.json", function (file) {
+                var $qualification = $("<p>").text("Квалификация: " + file.studyInfo.qualification),
+                    $profile = $("<p>").text("Профиль обучения: " + file.studyInfo.profile),
+                    $faculty = $("<p>").text("Факультет: " + file.studyInfo.faculty),
+                    $dept = $("<p>").text("Кафедра: " + file.studyInfo.dept),
+                    $groupNumber = $("<p>").text("Номер группы: " + file.studyInfo.groupNumber),
+                    $recordBookNumber = $("<p>").text("Номер зачетной книжки: " + file.studyInfo.recordBookNumber);
+                $content.append($qualification).append($profile).append($faculty).
+                    append($dept).append($groupNumber).append($recordBookNumber);
                 callback(null, $content);
             }).fail(function (jqXHR, textStatus, error) {
                 callback(error, null);

@@ -15,7 +15,13 @@ var main = function () {
                     if (user.role == 'admin') {
                         location.href = username + "/admin.html";
                     } else if (user.role == 'user') {
-                        location.href = username + "/user.html";
+                        $.get("/files/" + $input.val(), function (file) {
+                            if (file) {
+                                location.href = username + "/user.html";
+                            } else {
+                                alert("Ваше личное дело ещё не сформировано. Обратитесь к модератору.")
+                            }
+                        })
                     } else if (user.role == 'moderator') {
                         location.href = username + "/moderator.html";
                     }

@@ -2,7 +2,8 @@ var File = require("../models/personalFile.js"),
     FilesController = {};
 
 FilesController.index = function (req, res) {
-    File.find(function (err, files) {
+    var username = req.params.username;
+    File.findOne({ "username": username }, function (err, files) {
         if (err !== null) {
             res.status(500).json(err);
         } else {
