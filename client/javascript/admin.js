@@ -35,7 +35,7 @@ var main = function () {
                 if (username !== '') {
                     $.post("users", { "username": username, "role":  role }, function (result) {
                         alert("Добавлено успешно!");
-                        $(".tabs a:nth-child(1) span").trigger("click");
+                        location.reload();
                     }).fail(function (err) {
                         alert(err.responseText);
                     })
@@ -51,26 +51,16 @@ var main = function () {
     })
 
     tabs.forEach(function (tab) {
-        var $aElement = $("<a>").attr("href", "#"),
-            $spanElement = $("<span>").text(tab.name);
-        $aElement.append($spanElement);
-        $("main .tabs").append($aElement).append($content);
-        $spanElement.on("click", function () {
-            $(".tabs a span").removeClass("active");
-            $spanElement.addClass("active");
-            $("main .content").empty();
-            tab.content(function (err, $content) {
-                if (err !== null) {
-                    alert("Возникла ошибка при обработке запроса: ", err);
-                } else {
-                    $("main .content").append($content);
-                }
-            });
-            return false;
+        var $tab = $("<div>").addClass("tab");
+        $("main .tabs").append($tab);
+        tab.content(function (err, $content) {
+            if (err !== null) {
+                alert("Возникла ошибка при обработке запроса: ", err);
+            } else {
+                $tab.append($content);
+            }
         });
     });
-
-    $(".tabs a:first-child span").trigger("click");
 };
 
 var liaWithEditAndDeleteOnClick = function (user) {
@@ -108,7 +98,8 @@ var liaWithEditAndDeleteOnClick = function (user) {
             if (confirm("Вы уверены?")) {
                 $.ajax({
                     "url": "users/" + user._id,
-                    "type": "DELETE"
+                    "type": "DELETE",
+                    "data": { "username": user.username }
                 }).done(function (response) {
                     alert("Deleted successfully!");
                     location.reload();

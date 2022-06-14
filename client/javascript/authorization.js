@@ -15,9 +15,9 @@ var main = function () {
                     if (user.role == 'admin') {
                         location.href = username + "/admin.html";
                     } else if (user.role == 'user') {
-                        location.href = username + "/users.html";
+                        location.href = username + "/user.html";
                     } else if (user.role == 'moderator') {
-                        location.href = username + "/moderators.html";
+                        location.href = username + "/moderator.html";
                     }
                 } else {
                     alert("Неверное имя пользователя");

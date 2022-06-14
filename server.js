@@ -2,6 +2,7 @@ var express = require("express"),
     http = require("http"),
     mongoose = require("mongoose"),
     usersController = require("./controllers/users_controller.js"),
+    filesController = require("./controllers/files_controller.js"),
     app = express();
 
 app.use('/', express.static(__dirname + "/client"));
@@ -26,3 +27,9 @@ app.get("/userID/:id", usersController.searchById);
 app.post("/:username/users", usersController.create);
 app.delete("/:username/users/:id", usersController.destroy);
 app.put("/:username/users/:id", usersController.update);
+
+app.get("/:username/files.json", filesController.index);
+app.get("/files/:username", filesController.search);
+app.post("/:username/files", filesController.create);
+app.put("/:username/files/:username", filesController.update);
+app.delete("/:username/files/:username", filesController.destroy);

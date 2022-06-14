@@ -1,4 +1,5 @@
 var User = require("../models/user.js"),
+    File = require("../models/personalFile.js"),
     UsersController = {};
 
 UsersController.index = function (req, res) {
@@ -77,12 +78,20 @@ UsersController.update = function (req, res) {
 
 //Удалить существующего пользователя
 UsersController.destroy = function (req, res) {
-    var id = req.params.id;
+    var id = req.params.id,
+        username = req.body.username;
     User.deleteOne({ "_id": id }, function (err, user) {
         if (err !== null) {
             res.status(500).json(err);
         } else {
-            res.status(200).json(user);
+            console.log(username);
+            File.deleteMany({ "username": username }, function (err, todo) {
+                if (err !== null) {
+                    res.status(500).json(err);
+                } else {
+                    res.status(200).json(user);
+                }
+            });
         }
     });
 };
