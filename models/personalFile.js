@@ -1,5 +1,4 @@
-var mongoose = require("mongoose"),
-    ObjectId = mongoose.Schema.Types.ObjectId;
+var mongoose = require("mongoose");
 
 var FileSchema = mongoose.Schema({
     minorInfo: {

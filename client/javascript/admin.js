@@ -94,7 +94,7 @@ var liaWithEditAndDeleteOnClick = function (user) {
     })
 
     $userRemoveLink.on('click', function () {
-        if (user.role != 'Админ') {
+        if (user.role != 'admin') {
             if (confirm("Вы уверены?")) {
                 $.ajax({
                     "url": "users/" + user._id,
